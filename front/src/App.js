@@ -1,22 +1,20 @@
-import MyDateContainer from './containers';
+import Head from './containers/header';
+import Body from './containers/body';
+
+import {useState} from 'react';
 
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
    
+  const [page, setPage] = useState('article');
+
   return (
     <div className="App">
-      <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         <MyDateContainer
-            firstName= 'Dima'
-            lastName = 'Yaroshenko'
-            bday = '05.09.1995'
-         />
-        </p>
-      </header>
+       <Head setPage={setPage} />
+       <Body page={page} />
     </div>
   );
 }
