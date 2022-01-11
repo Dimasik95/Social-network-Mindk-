@@ -7,17 +7,21 @@ import Article from '../../components/article';
 
 const Body = ({ page }) => {
 
+const article = 'article'
+const addArticle = 'addArticle'
+const profile = 'profile'
+
 return ( 
     <div>
-        {page === 'addArticle' && <AddArticle />}
-        {page === 'profile' && (
+        {page === addArticle && <AddArticle />}
+        {page === profile && (
             <Profile 
                 fullName={'Yaroshenko Dmytro'}
                 bday={'05.09.1995'}
                 email={'example@ukr.net'}
             />
             )}
-        {page === 'article' && (
+        {page === article && (
             <Article 
                 name={'Incomprehensible Genius'}
                 text={'React is very interesting thing'}
