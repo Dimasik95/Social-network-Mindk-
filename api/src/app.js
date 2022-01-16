@@ -9,8 +9,8 @@ const likesRoutes = require('./routes/likes');
 
 const app = express();
 
-const host = config.host;
-const port = config.port;
+const {host} = config;
+const {port} = config;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use('/comments', commentsRoutes);
 app.use('/likes', likesRoutes);
 
 app.get('/', (req, res) => {
-	res.send('Hello World!');
+	res.send('Hello wsad!');
 });
 
 app.listen(port, () => {
