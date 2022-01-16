@@ -37,7 +37,8 @@ function DATA() {
   
 
   if (restr.test(data)) {
-     if (now.getTime() > writeData.getTime()) {
+
+    if (now.getTime() > writeData.getTime()) {
 			return <div>You write: {data}</div>
 		}
 		return <div>Write another data, pls</div>;
