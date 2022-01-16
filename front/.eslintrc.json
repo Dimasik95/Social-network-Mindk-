@@ -20,6 +20,9 @@
         "react"
     ],
     "rules": {
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "react/jsx-uses-vars": "error",
+        "react/jsx-uses-react": "error"   
+        
     }
 }
