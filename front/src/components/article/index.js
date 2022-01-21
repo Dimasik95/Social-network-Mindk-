@@ -1,4 +1,9 @@
-const Article = ({ name, day, text}) => {
+import React from 'react';
+import articlePropTypes from '../../propTypes/articlePropTypes'
+
+
+const Article = (props) => {
+    const { name, day, text} = props; 
     return (
         <div>
             <p>Author: {name}</p>
@@ -7,5 +12,7 @@ const Article = ({ name, day, text}) => {
         </div>
     );
 }
+
+Article.PropTypes = articlePropTypes;
 
 export default Article;
