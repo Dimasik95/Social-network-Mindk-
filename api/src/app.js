@@ -1,29 +1,30 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const config = require('./services/config');
-const usersRoutes = require('./routes/users');
-const articlesRoutes = require('./routes/articles');
-const commentsRoutes = require('./routes/comments');
-const likesRoutes = require('./routes/likes');
+require("dotenv").config();
+const config = require("./services/config");
+const usersRoutes = require("./routes/users");
+const articlesRoutes = require("./routes/articles");
+const commentsRoutes = require("./routes/comments");
+const likesRoutes = require("./routes/likes");
 
 const app = express();
 
-const {host} = config;
-const {port} = config;
+const { host } = config;
+const { port } = config;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use('/users', usersRoutes);
-app.use('/articles', articlesRoutes);
-app.use('/comments', commentsRoutes);
-app.use('/likes', likesRoutes);
+app.use("/users", usersRoutes);
+app.use("/articles", articlesRoutes);
+app.use("/comments", commentsRoutes);
+app.use("/likes", likesRoutes);
 
-app.get('/', (req, res) => {
-	res.send('Hello wsad!');
+app.get("/", (req, res) => {
+  res.send("Hello world1!");
 });
 
 app.listen(port, () => {
-	console.log(`Example app listening at http://${host}:${port}`);
+  console.log(`Example app listening at http://${host}:${port}`);
 });
