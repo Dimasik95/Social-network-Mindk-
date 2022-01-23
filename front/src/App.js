@@ -1,14 +1,15 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { Routes, Route, useParams } from "react-router-dom";
 import Head from './containers/header';
 
 import AddArticle from './components/addArticle';
-import Profile from './components/profile';
-import Article from './components/article';
-
+// import Profile from './components/profile';
 
 import logo from './logo.svg';
 import './App.css';
+import PostContainer from "./containers/posts";
+import ProfileContainer from "./containers/profile"
+import UsersContainer from "./containers/users"
+
 
 function CheckId() {
   const { id } = useParams();
@@ -54,12 +55,14 @@ function App() {
         <Head />
         <Routes>
             <Route path='/' element={<div>Home</div>} />
-            <Route path='/articles' element={<Article />} />
             <Route path="/articles/:id" element={<CheckId />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route path='/profile' element={<ProfileContainer />} />
+            {/* <Route path='/profile' element={<ProfileContainer />} /> */}
             <Route path='/article' element={<AddArticle />} />
             <Route path='/date/:data' element={<DATA />} />
             <Route path='*' element={<div>EROR 404</div>} />
+            <Route path='/articles' element={<PostContainer />} />
+            <Route path='/users' element={<UsersContainer />} />
         </Routes>
     </div>
   );

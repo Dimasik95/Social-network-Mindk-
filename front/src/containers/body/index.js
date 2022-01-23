@@ -1,5 +1,3 @@
-import React from 'react';
-
 import AddArticle from '../../components/addArticle';
 import Profile from '../../components/profile'
 import Article from '../../components/article';
