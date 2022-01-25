@@ -1,4 +1,10 @@
 {
+    "settings": {
+        "react": {
+        "pragma": "React",
+        "version": "latest"
+        }
+        },
     "env": {
         "browser": true,
         "es6": true,
@@ -9,6 +15,7 @@
         "plugin:react/recommended",
         "plugin:react/jsx-runtime"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -20,6 +27,9 @@
         "react"
     ],
     "rules": {
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "react/jsx-uses-vars": "error",
+        "react/jsx-uses-react": "error"   
+        
     }
 }

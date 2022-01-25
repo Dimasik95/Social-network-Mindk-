@@ -8,13 +8,15 @@
     "lint": "eslint ./src",
     "dev": "nodemon -r dotenv/config src/app.js"
   },
-  "author": "Kostya Petukhov",
+  "author": "Dima Yaroshenko",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.14",
+    "multer": "^1.4.4",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1"
   },

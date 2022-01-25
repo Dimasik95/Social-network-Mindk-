@@ -1,6 +1,7 @@
 import AddArticle from '../../components/addArticle';
 import Profile from '../../components/profile'
 import Article from '../../components/article';
+import PropTypes from 'prop-types';
 
 
 const Body = ({ page }) => {
@@ -30,5 +31,9 @@ return (
     </div>
     );
 }
+
+Body.propTypes = {
+	page: PropTypes.string.isRequired,
+};
 
 export default Body; 

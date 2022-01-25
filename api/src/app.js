@@ -18,17 +18,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 // app.use(cors());
 
-app.use('/users', usersRoutes);
-app.use('/articles', articlesRoutes);
-app.use('/comments', commentsRoutes);
-app.use('/likes', likesRoutes);
+app.use("/users", usersRoutes);
+app.use("/articles", articlesRoutes);
+app.use("/comments", commentsRoutes);
+app.use("/likes", likesRoutes);
 
-app.get('/', (req, res) => {
-	res.send('Hello wsad!');
+app.get("/", (req, res) => {
+  res.send("Hello world1!");
 });
 
 app.listen(process.env.PORT, () => {
 	console.log(
 		`Example app listening at http://${process.env.HOST}:${process.env.PORT}`
 	);
+
 });

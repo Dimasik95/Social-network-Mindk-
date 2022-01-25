@@ -6,8 +6,8 @@ router.get('/', async (req, res) => {
 	res.json(users);
 });
 
-router.get('/:id', async (req, res) => {
-	const user = await db.select().from('userdata').where({ id: req.params.iduser });
+router.get('/:iduser', async (req, res) => {
+	const user = await db.select().from('userdata').where({ iduser: req.params.iduser });
 	res.json(user);
 });
 
@@ -16,17 +16,18 @@ router.post('/', async (req, res) => {
 	res.send('Create user!');
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:iduser', async (req, res) => {
 	await db
 		.select()
 		.from('userdata')
-		.where({ id: req.params.iduser })
+		.where({ iduser: req.params.iduser })
 		.update(req.body);
 	res.send('Updated user!');
 });
 
-router.delete('/:id', async (req, res) => {
-	await db.select().from('userdata').where({ id: req.params.iduser }).del();
+
+router.delete('/:iduser', async (req, res) => {
+	await db.select().from('userdata').where({ iduser: req.params.iduser }).del();
 	res.send('Deleted user!');
 });
 

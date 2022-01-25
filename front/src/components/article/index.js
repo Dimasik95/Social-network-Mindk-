@@ -1,3 +1,5 @@
+import React from 'react';
+
 import articlePropTypes from '../../propTypes/articlePropTypes'
 
 
