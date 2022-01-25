@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+// const cors = require('cors');
 
-const config = require('./services/config');
+// const config = require('./services/config');
 const usersRoutes = require('./routes/users');
 const articlesRoutes = require('./routes/articles');
 const commentsRoutes = require('./routes/comments');
@@ -9,11 +10,13 @@ const likesRoutes = require('./routes/likes');
 
 const app = express();
 
-const {host} = config;
-const {port} = config;
+require('dotenv').config();
+// const {host} = config;
+// const {port} = config;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+// app.use(cors());
 
 app.use('/users', usersRoutes);
 app.use('/articles', articlesRoutes);
@@ -24,6 +27,8 @@ app.get('/', (req, res) => {
 	res.send('Hello wsad!');
 });
 
-app.listen(port, () => {
-	console.log(`Example app listening at http://${host}:${port}`);
+app.listen(process.env.PORT, () => {
+	console.log(
+		`Example app listening at http://${process.env.HOST}:${process.env.PORT}`
+	);
 });
