@@ -6,18 +6,18 @@ router.get('/', async (req, res) => {
 	res.json(likes);
 });
 
-router.get('/:id', async (req, res) => {
-	const like = await db.select().from('liked').where({ id: req.params.idliked });
+router.get('/:idliked', async (req, res) => {
+	const like = await db.select().from('liked').where({ idliked: req.params.idliked });
 	res.json(like);
 });
 
 router.post('/', async (req, res) => {
 	await db.insert(req.body).into('liked');
-	res.send('Like news!');
+	res.send('New like!');
 });
 
-router.delete('/:id', async (req, res) => {
-	await db.select().from('liked').where({ id: req.params.idliked }).del();
+router.delete('/:idliked', async (req, res) => {
+	await db.select().from('liked').where({ idliked: req.params.idliked }).del();
 	res.send('Like was deleted!');
 });
 

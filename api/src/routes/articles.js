@@ -6,11 +6,8 @@ router.get('/', async (req, res) => {
 	res.json(articles);
 });
 
-router.get('/:id', async (req, res) => {
-	const article = await db
-		.select()
-		.from('news')
-		.where({ id: req.params.idnews });
+router.get('/:idnews', async (req, res) => {
+	const article = await db.select().from('news').where({ idnews: req.params.idnews });
 	res.json(article);
 });
 
@@ -19,17 +16,17 @@ router.post('/', async (req, res) => {
 	res.send('Created news!');
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:idnews', async (req, res) => {
 	await db
 		.select()
 		.from('news')
-		.where({ id: req.params.idnews })
+		.where({ idnews: req.params.idnews })
 		.update(req.body);
 	res.send('News updated!');
 });
 
-router.delete('/:id', async (req, res) => {
-	await db.select().from('news').where({ id: req.params.idnews }).del();
+router.delete('/:idnews', async (req, res) => {
+	await db.select().from('news').where({ idnews: req.params.idnews }).del();
 	res.send('News deleted!');
 });
 

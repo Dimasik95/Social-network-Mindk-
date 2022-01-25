@@ -4,7 +4,7 @@ import Profile from '../profile';
 
 const UserProfile = (props) => {
 	const { profile } = props;
-
+	console.log(profile)
 	return (
 		<div>
 			{profile.map(({ id, fullName, bday, email }) => (
