@@ -6,7 +6,7 @@ import AddArticle from './components/addArticle';
 
 import logo from './logo.svg';
 import './App.css';
-import PostContainer from "./containers/posts";
+import ArticlesContainer from "./containers/posts";
 import ProfileContainer from "./containers/profile"
 import UsersContainer from "./containers/users"
 
@@ -50,19 +50,19 @@ function DATA() {
 function App() {
  
   return (
-    <div className="App">
+    <div>
         <img src={logo} className="App-logo" alt="logo" />
         <Head />
         <Routes>
             <Route path='/' element={<div>Home</div>} />
             <Route path="/articles/:id" element={<CheckId />} />
-            <Route path='/profile' element={<ProfileContainer />} />
             {/* <Route path='/profile' element={<ProfileContainer />} /> */}
             <Route path='/article' element={<AddArticle />} />
             <Route path='/date/:data' element={<DATA />} />
             <Route path='*' element={<div>EROR 404</div>} />
-            <Route path='/articles' element={<PostContainer />} />
+            <Route path='/articles' element={<ArticlesContainer />} />
             <Route path='/users' element={<UsersContainer />} />
+            <Route path='/users/:id' element={<ProfileContainer />} />
         </Routes>
     </div>
   );

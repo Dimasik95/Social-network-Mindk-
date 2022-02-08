@@ -1,19 +1,23 @@
 import React from 'react';
-
-import articlePropTypes from '../../propTypes/articlePropTypes'
-
+import articlePropTypes from '../../propTypes/articlePropTypes';
 
 const Article = (props) => {
-    const { name, day, text} = props; 
-    return (
+	const { author, when, text, id } = props;
+	return (
         <div>
-            <p>Author: {name}</p>
-            <p>Article about: {text}</p>
-            <p>Today is: {day}</p>
-        </div>
-    );
-}
+            <p>Index: {id}</p>
+            <p>Author: {author}</p>
+            <p>Article text: {text}</p>
+            <p>Article create: {when}</p>
+            <p>___________________________________________</p>
+    </div>
+	);
+};
 
-Article.PropTypes = articlePropTypes;
+Article.propTypes = articlePropTypes;
+
+Article.defaultProps = {
+	author: 'Dima Yarosh',
+};
 
 export default Article;

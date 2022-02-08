@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 
 const articlePropTypes = {
-	name: PropTypes.string.isRequired,
-	day: PropTypes.string.isRequired,
-	text: PropTypes.string.isRequired,
+	id: PropTypes.number.isRequired,
+	author: PropTypes.number.isRequired,
+	when: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired
 };
 
 export default articlePropTypes;

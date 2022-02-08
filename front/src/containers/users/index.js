@@ -1,4 +1,4 @@
-import {getUsers} from "./api/crud"
+import { getUsers } from "./api/crud"
 import { useQuery } from "react-query";
 import Users from "../../components/users"
 

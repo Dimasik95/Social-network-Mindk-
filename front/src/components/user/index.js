@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-import UserPropTypes from '../../propTypes/usersPropTypes';
+import UserPropTypes from '../../propTypes/userPropTypes';
 
 const User = (props) => {
 	const { name, id } = props;
-
 	return (
 		<div>
 			<Link to={`/users/${id}`}>

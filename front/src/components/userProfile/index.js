@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types';
-
 import Profile from '../profile';
 
 const UserProfile = (props) => {
 	const { profile } = props;
-	console.log(profile)
 	return (
 		<div>
-			{profile.map(({ id, fullName, bday, email }) => (
-				<Profile key={id} name={fullName} birthday={bday} email={email} />
+			{profile.map(({ iduser, firstname, secondname, pagenamenickname, email, phonenumber }) => (
+				<Profile 
+				key={iduser}
+				id={iduser} 
+				f_name={firstname}
+				s_name={secondname}
+				nick={pagenamenickname}
+				email={email} 
+				phone={phonenumber} />
 			))}
 		</div>
 	);

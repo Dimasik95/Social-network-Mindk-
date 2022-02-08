@@ -1,6 +1,6 @@
-import { getArticles } from "./api/crud";
+import {getArticles} from "./api/crud";
 import { useQuery } from "react-query";
-import Article from "../../components/article"
+import Articles from "../../components/articles"
 
 const ArticlesContainer = () => {
     const {isFetching, data} = useQuery('articles', () => getArticles());
@@ -8,7 +8,7 @@ const ArticlesContainer = () => {
     return (
         <div>
             {isFetching && <div>Loading...</div>}
-            <Article articles={articles}/>
+            <Articles articles={articles}/>
         </div>
     );
 }

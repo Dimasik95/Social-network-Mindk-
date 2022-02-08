@@ -3,12 +3,15 @@ import User from '../user';
 
 const Users = (props) => {
 	const { users } = props;
-	
 	return (
 		<div>
-			<h2>Users:</h2>
-			{users.map(({ id, firstname }) => (
-				<User key={id} id={id} name={firstname} />
+			<p>Users:</p>
+			{users.map(({ iduser, firstname }) => (
+				<User 
+				key={iduser}
+				id={iduser} 
+				name={firstname} 
+				/>
 			))}
 		</div>
 	);

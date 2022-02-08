@@ -1,4 +1,4 @@
-import {getProfile} from "./api/krud"
+import {getProfile} from "./api/krud";
 import { useQuery } from "react-query";
 import { useParams } from 'react-router';
 import UserProfile from "../../components/userProfile";
