@@ -1,5 +1,28 @@
 const router = require('express').Router();
-const userService = require('../services/store/users.service')
+const userService = require('../services/store/users.service');
+const fileMiddleware = require('../middleware/file');
+const path = require('path');
+
+router.get('/:iduser/avatar', async (req, res) => {
+		const iduser = req.params.iduser;
+		const avatar = await userService.getUserAvatar(iduser);
+		const avatarphoto = avatar.map((x) => x.avatar);
+		
+		res.status(200).sendFile(`${avatarphoto}`, {
+			root: path.dirname('../'),
+		});
+});
+
+router.post('/:iduser/avatar', fileMiddleware.single('avatar'), async (req, res) => {
+		const iduser = req.params.iduser;
+		const avatarphoto = req.file.path;
+		const addAvatar = await userService.addUserAvatar(iduser, avatarphoto);
+		if(addAvatar) {
+			res.status(200).send('Avatar loaded!');
+		} else {
+		res.status(404).send('Avatar is not loaded');
+	}
+});
 
 router.get('/', async (req, res) => {
 	const limit = req.query.limit || 10;

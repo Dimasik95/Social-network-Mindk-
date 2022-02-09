@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
-
+const path = require('path');
 
 const usersRoutes = require('./routes/users');
 const articlesRoutes = require('./routes/articles');
@@ -15,6 +14,7 @@ require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/avatar', express.static(path.join(__dirname, '../avatar')))
 
 app.use("/users", usersRoutes);
 app.use("/articles", articlesRoutes);
