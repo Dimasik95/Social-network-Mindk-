@@ -7,7 +7,7 @@ import AddArticle from './components/addArticle';
 import logo from './logo.svg';
 import './App.css';
 import ArticlesContainer from "./containers/posts";
-import ProfileContainer from "./containers/profile"
+import ProfileContainer from "./containers/profile";
 import UsersContainer from "./containers/users"
 
 
@@ -59,7 +59,7 @@ function App() {
             {/* <Route path='/profile' element={<ProfileContainer />} /> */}
             <Route path='/article' element={<AddArticle />} />
             <Route path='/date/:data' element={<DATA />} />
-            <Route path='*' element={<div>EROR 404</div>} />
+            <Route path='*' element={<div>Error 404</div>} />
             <Route path='/articles' element={<ArticlesContainer />} />
             <Route path='/users' element={<UsersContainer />} />
             <Route path='/users/:id' element={<ProfileContainer />} />
