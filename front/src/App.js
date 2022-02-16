@@ -2,7 +2,6 @@ import { Routes, Route, useParams } from "react-router-dom";
 import Head from './containers/header';
 
 import AddArticle from './components/addArticle';
-// import Profile from './components/profile';
 
 import logo from './logo.svg';
 import './App.css';
@@ -56,7 +55,6 @@ function App() {
         <Routes>
             <Route path='/' element={<div>Home</div>} />
             <Route path="/articles/:id" element={<CheckId />} />
-            {/* <Route path='/profile' element={<ProfileContainer />} /> */}
             <Route path='/article' element={<AddArticle />} />
             <Route path='/date/:data' element={<DATA />} />
             <Route path='*' element={<div>Error 404</div>} />

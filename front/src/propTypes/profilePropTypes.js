@@ -6,7 +6,8 @@ const profilePropTypes = {
 	s_name:  PropTypes.string.isRequired,
 	nick:  PropTypes.string.isRequired,
 	email: PropTypes.string.isRequired,
-	phone: PropTypes.string.isRequired
+	phone: PropTypes.string.isRequired,
+	avatar: PropTypes.string
 };
 
 export default profilePropTypes;

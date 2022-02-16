@@ -1,11 +1,13 @@
-import {getProfile} from "./api/krud";
-import { useQuery } from "react-query";
-import { useParams } from 'react-router';
 import UserProfile from "../../components/userProfile";
 
+import {getUserProfile} from "../users/api/crud";
+import { useQuery } from "react-query";
+import { useParams } from 'react-router';
+
+
 const ProfileContainer = () => {
-    const { id } = useParams();
-    const {isFetching, data} = useQuery(`users/${id}`, () => getProfile(id));
+    const { iduser } = useParams();
+    const {isFetching, data} = useQuery(`users/${iduser}`, () => getUserProfile(iduser));
     const profile = data?.data || [];
     return (
         <div>
