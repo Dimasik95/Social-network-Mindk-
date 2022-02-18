@@ -4,10 +4,10 @@ export const getUsers = async () => {
     return apiClient.get('/users');
 };
 
-export const getUserProfile = async (id) => {
-	return apiClient.get(`/users/${id}`);
+export const getUserProfile = async (iduser) => {
+	return apiClient.get(`/users/${iduser}`);
 };
 
-export const editUserProfile = async (id, data) => {
-	return apiClient.put(`/users/${id}`, data);
+export const editUserProfile = async (iduser, data) => {
+	return apiClient.put(`/users/${iduser}`, data);
 };

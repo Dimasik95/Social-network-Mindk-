@@ -11,7 +11,7 @@ const Articles = (props) => {
 				key={idnews}
 				id={idnews}
 				when={dateandtime}
-				text={textnews}
+				textnews={textnews}
 				author={author} 
 			/>
 			

@@ -19,8 +19,8 @@ module.exports = {
             .from('userdata')
             .where({ iduser }),
 
-    addUserAvatar: async (iduser, avatarphoto) => 
-        db.update({ avatar: avatarphoto })
+    addUserAvatar: async (iduser, avatar) => 
+        db.update({avatarphoto: avatar })
             .from('userdata')
             .where({ iduser }),
     

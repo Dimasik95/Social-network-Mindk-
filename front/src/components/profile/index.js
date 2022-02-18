@@ -8,9 +8,9 @@ import { editUserProfile } from '../../containers/users/api/crud';
 import profilePropTypes from '../../propTypes/profilePropTypes'
 
 const Profile = (props) => {
-    const { id, f_name, s_name, avatar} = props;
+    const { iduser, firstname, secondname, avatar} = props;
     
-    const mutation = useMutation((data) => editUserProfile(data, id));
+    const mutation = useMutation((data) => editUserProfile( iduser, data));
     const onFormSubmit = (data) => {
 		mutation.mutate({
 			iduser: data.iduser,
@@ -39,10 +39,10 @@ const Profile = (props) => {
             validationSchema={schema}
             >
             <Form>
-                <p>
-                    {f_name+s_name}
-                    <Avatar alt={f_name+s_name} src={avatar} sx={{ width:70 , height: 70 }} />
-                </p>
+                <Box margin={3}>
+                    {firstname+secondname}
+                    <Avatar alt={firstname} src={avatar} sx={{ width:70 , height: 70 }} />
+                </Box>
                 <Box margin={3}>
                     <Field label='First name:' component={TextField} type='input' name='firstname'/>
                     <Field label='Second name:' component={TextField} type='input' name='secondname'/>
@@ -60,6 +60,14 @@ const Profile = (props) => {
                 <Button variant='contained' type='submit'>Edit</Button>
             </Form>
         </Formik>
+        <form
+                action={`http://localhost:3030/users/${iduser}/avatar`}
+                method='POST'
+                encType='multipart/form-data'
+            >
+                <input type='file' name='avatar' />
+                <button type='submit'>SEND</button>
+            </form>
     </div>
     );
 }

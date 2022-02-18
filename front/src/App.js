@@ -60,7 +60,7 @@ function App() {
             <Route path='*' element={<div>Error 404</div>} />
             <Route path='/articles' element={<ArticlesContainer />} />
             <Route path='/users' element={<UsersContainer />} />
-            <Route path='/users/:id' element={<ProfileContainer />} />
+            <Route path='/users/:iduser' element={<ProfileContainer />} />
         </Routes>
     </div>
   );
