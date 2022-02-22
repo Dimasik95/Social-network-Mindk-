@@ -5,15 +5,16 @@ const UserProfile = (props) => {
 	const { profile } = props;
 	return (
 		<div>
-			{profile.map(({ iduser, firstname, secondname, pagenamenickname, email, phonenumber }) => (
+			{profile.map(({ iduser, firstname, secondname, pagenamenickname, email, phonenumber, avatar }) => (
 				<Profile 
 				key={iduser}
-				id={iduser} 
-				f_name={firstname}
-				s_name={secondname}
-				nick={pagenamenickname}
+				iduser={iduser} 
+				firstname={firstname}
+				secondname={secondname}
+				pagenamenickname={pagenamenickname}
 				email={email} 
-				phone={phonenumber} />
+				phonenumber={phonenumber}
+				avatar={avatar} />
 			))}
 		</div>
 	);

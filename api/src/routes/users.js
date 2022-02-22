@@ -1,7 +1,7 @@
 const router = require('express').Router();
+const path = require('path');
 const userService = require('../services/store/users.service');
 const fileMiddleware = require('../middleware/file');
-const path = require('path');
 
 router.get('/:iduser/avatar', async (req, res) => {
 		const iduser = req.params.iduser;
@@ -15,8 +15,8 @@ router.get('/:iduser/avatar', async (req, res) => {
 
 router.post('/:iduser/avatar', fileMiddleware.single('avatar'), async (req, res) => {
 		const iduser = req.params.iduser;
-		const avatarphoto = req.file.path;
-		const addAvatar = await userService.addUserAvatar(iduser, avatarphoto);
+		const avatar = req.file.path;
+		const addAvatar = await userService.addUserAvatar(iduser, avatar);
 		if(addAvatar) {
 			res.status(200).send('Avatar loaded!');
 		} else {
@@ -45,6 +45,7 @@ router.get('/:iduser', async (req, res) => {
 	const iduser = req.params.iduser;
 	try {
 		const user = await userService.getUserById(iduser);
+		console.log(user);
 		if (user && Object.keys(user).length) {
 			res.status(200).send(user);
 		} else {

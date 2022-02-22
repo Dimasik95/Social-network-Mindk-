@@ -1,6 +1,9 @@
+import React from 'react';
+
+import Users from "../../components/users"
 import { getUsers } from "./api/crud"
 import { useQuery } from "react-query";
-import Users from "../../components/users"
+
 
 const UsersContainer = () => {
     const {isFetching, data} = useQuery('users', () => getUsers());

@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import {Link, ListItemText} from '@mui/material';
 import UserPropTypes from '../../propTypes/userPropTypes';
 
 const User = (props) => {
 	const { name, id } = props;
 	return (
 		<div>
-			<Link to={`/users/${id}`}>
-				<p>{name}</p>
+			<Link underline='hover' href={`/users/${id}`}>
+				<ListItemText primary={name}/>
 			</Link>
 		</div>
 	);

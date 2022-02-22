@@ -5,9 +5,11 @@ const storage = multer.diskStorage({
         cb(null, 'avatar/')
     },
     filename(req, file, cb) {
-        cb(null, `${new Date().toISOString()}-${file.originalname}`)
+        cb(null, `${Date.now()}-${file.originalname}`)
     }
 })
+
+const upload = multer({ storage })
 
 const types = ['image/png', 'image/jpeg', 'image/jpg']
 
@@ -19,4 +21,4 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-module.exports = multer({storage, fileFilter})
+module.exports = multer(upload, fileFilter)

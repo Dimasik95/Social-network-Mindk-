@@ -1,6 +1,8 @@
+import Articles from "../../components/articles"
+
 import {getArticles} from "./api/crud";
 import { useQuery } from "react-query";
-import Articles from "../../components/articles"
+
 
 const ArticlesContainer = () => {
     const {isFetching, data} = useQuery('articles', () => getArticles());
