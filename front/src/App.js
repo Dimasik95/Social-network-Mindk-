@@ -7,7 +7,8 @@ import logo from './logo.svg';
 import './App.css';
 import ArticlesContainer from "./containers/posts";
 import ProfileContainer from "./containers/profile";
-import UsersContainer from "./containers/users"
+import UsersContainer from "./containers/users";
+import FormContainer from './containers/form';
 
 
 function CheckId() {
@@ -61,6 +62,7 @@ function App() {
             <Route path='/articles' element={<ArticlesContainer />} />
             <Route path='/users' element={<UsersContainer />} />
             <Route path='/users/:iduser' element={<ProfileContainer />} />
+            <Route path="/form" element={<FormContainer />}/>
         </Routes>
     </div>
   );
