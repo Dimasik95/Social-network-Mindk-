@@ -26,10 +26,10 @@ module.exports = {
         .from('liked')
         .where({ idliked }),
     
-    addArticle: async (article, picture) => 
+    addArticle: async (article, picture, userid) => 
         db.insert({
                     textnews: article.textnews,
-                    author: article.author,
+                    userid,
                     dateandtime: article.dateandtime,
                     visibility: article.visibility,
                     image: picture,

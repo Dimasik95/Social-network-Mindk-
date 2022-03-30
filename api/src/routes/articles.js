@@ -2,6 +2,7 @@ const router = require('express').Router();
 const articleService = require('../services/store/articles.service');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
 const fileMiddleware = require('../middleware/file');
+const authMiddleware = require('../middleware/authMiddleware')
 
 
 router.get('/',
@@ -62,12 +63,14 @@ router.get('/:idliked/likes',
 );
 
 router.post('/',
+authMiddleware,
 fileMiddleware.single('image'), 
 asyncErrorHandler(async (req, res) => {
 	const textnews = req.body;
 	const picture = req.file.path;
+	const userid = req.auth.id;
 	
-	const addArticle = await articleService.addArticle(textnews, picture);
+	const addArticle = await articleService.addArticle(textnews, picture, userid);
 		if (addArticle && Object.keys(addArticle).length) {
 			res.status(201).send('New article!');
 		} else {
@@ -77,6 +80,7 @@ asyncErrorHandler(async (req, res) => {
 );
 
 router.post('/idnews/image',
+			authMiddleware,
 			fileMiddleware.single('image'),
 			asyncErrorHandler(async (req, res) => {
 				const idnews = req.params.idnews;
@@ -91,6 +95,7 @@ router.post('/idnews/image',
 );
 
 router.put('/:idnews',
+		   authMiddleware,
 		   fileMiddleware.single('image'),
 		   asyncErrorHandler(async (req, res) => {
 	const idnews = req.params.idnews;
@@ -106,7 +111,8 @@ router.put('/:idnews',
 	})
 );
 
-router.delete('/:idnews', 
+router.delete('/:idnews',
+			   authMiddleware,
 			   asyncErrorHandler(async (req, res) => {
 	const idnews = req.params.idnews;
 	

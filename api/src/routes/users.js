@@ -3,6 +3,7 @@ const path = require('path');
 const userService = require('../services/store/users.service');
 const fileMiddleware = require('../middleware/file');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.get('/:iduser/avatar',
 	 	   asyncErrorHandler(async (req, res) => {
@@ -16,19 +17,19 @@ router.get('/:iduser/avatar',
 	})
 );
 
-router.post('/:iduser/avatar', 
-			fileMiddleware.single('avatar'),
-			asyncErrorHandler(async (req, res) => {
-		const iduser = req.params.iduser;
-		const avatar = req.file.path;
-		
-		const addAvatar = await userService.addUserAvatar(iduser, avatar);
-		if(addAvatar) {
-			res.status(200).send('Avatar loaded!');
-		} else {
-		res.status(404).send('Avatar is not loaded');
-		}
-	})
+router.post('/:iduser/avatar',
+		authMiddleware,
+		fileMiddleware.single('avatar'),
+		asyncErrorHandler(async (req, res) => {
+				const iduser = req.params.iduser;
+				const avatar = req.file.path;
+				const addAvatar = await userService.addUserAvatar(iduser, avatar);
+				if(addAvatar) {
+						res.status(200).send('Avatar loaded!');
+				} else {
+						res.status(404).send('Avatar is not loaded');
+				}
+		})
 );
 
 router.get('/', 
@@ -60,43 +61,43 @@ router.get('/:iduser',
 );
 
 router.post('/',
-			asyncErrorHandler(async (req, res) => {
-	const userProfile = req.body;
-	
-	const addUser = await userService.addUser(userProfile);
-		if (addUser && Object.keys(addUser).length) {
-			res.status(201).send('New users!');
-		} else {
-			res.status(404).send('Not found');
-		} 
-	})
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+				const userProfile = req.body;
+				const addUser = await userService.addUser(userProfile);
+				if (addUser && Object.keys(addUser).length) {
+						res.status(201).send('New users!');
+				} else {
+						res.status(404).send('Not found');
+				} 
+		})
 );
 
 router.put('/:iduser',
-		   asyncErrorHandler(async (req, res) => {
-	const iduser = req.params.iduser;
-	const userProfile = req.body;
-
-	const editUser = await userService.editUser(iduser, userProfile);
-		if (editUser) {
-			res.status(200).send('User was update!');
-		} else {
-			res.status(404).send('Not found');
-		}
-	})
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+				const iduser = req.params.iduser;
+				const userProfile = req.body;
+				const editUser = await userService.editUser(iduser, userProfile);
+				if (editUser) {
+						res.status(200).send('User was update!');
+				} else {
+						res.status(404).send('Not found');
+				}
+		})
 );
 
 router.delete('/:iduser',
-			   asyncErrorHandler(async (req, res) => {
-	const iduser = req.params.iduser;
-
-	const deleteUser = await userService.deleteUser(iduser);
-		if (deleteUser) {
-			res.status(200).send('User was deleted!');
-		} else {
-			res.status(404).send('Not found');
-		}
-	})
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+				const iduser = req.params.iduser;
+				const deleteUser = await userService.deleteUser(iduser);
+				if (deleteUser) {
+						res.status(200).send('User was deleted!');
+				} else {
+						res.status(404).send('Not found');
+				}
+		})
 );
 
 module.exports = router;

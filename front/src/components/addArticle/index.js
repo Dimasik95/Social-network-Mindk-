@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useMutation } from 'react-query';
-import { TextField, InputBase } from 'formik-mui';
+import { TextField } from 'formik-mui';
 import { Button } from '@mui/material';
 import { addArticle } from '../../containers/posts/api/crud';
 import FormikAutocomplete from '../FormikAutocomplete';
@@ -13,7 +13,6 @@ import dataURLtoBlob from 'blueimp-canvas-to-blob';
 const AddArticle = () => {
 
     const Initial = {
-        userid: '1',
         visibility: 'All',
         content: 'Write something ...',
     };
@@ -21,7 +20,6 @@ const AddArticle = () => {
     const mutation = useMutation((data) => addArticle(data));
     const onFormSubmit = (data) => {
 		const formData = serialize({
-			author: data.author,
 			textnews: data.textnews,
 			dateandtime: new Date(),
             visibility: data.visibility.value,
@@ -58,7 +56,6 @@ const AddArticle = () => {
 	};
 
     const schema = Yup.object().shape({
-        author: Yup.number().typeError('Must be a number').required('Userid is required!').integer('Userid must be a number!'),
         textnews: Yup.string().required('Textnews is required!').min(1, 'You must enter textnews more than 1 symbol').max(500, 'You cant enter textnews more then 500 symbol')
     });
 
@@ -72,8 +69,6 @@ const AddArticle = () => {
 
             <h1>Add article</h1>
             <Form>
-                <Field component={InputBase} type='input' name='userid'/>
-                <ErrorMessage component='div' className='error' name='userid'/>
                 <Field component={TextField} as='textarea' className='textarea' multiline rows={5} name='textnews' lable='Post new article' variant='outlined' />
                 < Field component={ FormikAutocomplete } name='visibility' options={options} value={options.value} /> 
                 <Button variant='outlined'  className='button'>Cancel</Button>
