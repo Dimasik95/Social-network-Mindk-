@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const commentService = require('../services/store/comments.service');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.get('/', 
 		   asyncErrorHandler(async (req, res) => {
@@ -30,20 +31,23 @@ router.get('/:idcomment',
 	})
 );
 
-router.post('/', 
-			asyncErrorHandler(async (req, res) => {
-	const commenttext = req.body;
-
-	const addComment = await commentService.addComment(commenttext);
-		if (addComment && Object.keys(addComment).length) {
-			res.status(201).send('New comment!');
-		} else {
-			res.status(404).send('Not found');
-		}
-	})
+router.post('/',
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+			const addComment = await commentService.addComment({
+					...req.body,
+					userid: req.auth.id
+			});
+			if (addComment && Object.keys(addComment).length) {
+					res.status(201).send('New comment!');
+			} else {
+					res.status(404).send('Not found');
+			}
+		})
 );
 
 router.put('/:idcomment',
+		   authMiddleware,
 		   asyncErrorHandler(async (req, res) => {
 	const idcomment = req.params.idcomment;
 	const commenttext = req.body;
@@ -58,16 +62,17 @@ router.put('/:idcomment',
 );
 
 router.delete('/:idcomment',
-			  asyncErrorHandler(async (req, res) => {
-	const idcomment = req.params.idcomment;
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+				const idcomment = req.params.idcomment;
 
-	const deleteComment = await commentService.deleteComment(idcomment);
-		if (deleteComment) {
-			res.status(200).send('Comment was deleted!');
-		} else {
-			res.status(404).send('Not found');
-		}
-	})
+				const deleteComment = await commentService.deleteComment(idcomment);
+				if (deleteComment) {
+						res.status(200).send('Comment was deleted!');
+				} else {
+						res.status(404).send('Not found');
+				}
+		})
 );
 
 module.exports = router;

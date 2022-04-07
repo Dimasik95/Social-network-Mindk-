@@ -26,14 +26,26 @@ module.exports = {
         .from('liked')
         .where({ idliked }),
     
-    addArticle: async (textnews) => 
-        db.insert(textnews)
+    addArticle: async (article, picture, userid) => 
+        db.insert({
+                    textnews: article.textnews,
+                    userid,
+                    dateandtime: article.dateandtime,
+                    visibility: article.visibility,
+                    image: picture,
+        })
             .into('news'),
+
+    addArticleImage: async (idnews, image) =>
+            db.update({ image }).from('news').where({ idnews }),
     
-    editArticle: async (idnews, textnews) =>
-        db.select().from('news')
-        .where({ idnews })
-        .update(textnews),
+    editArticle: async (idnews, article, picture) =>
+        db.select().from('news').where({ idnews })
+        .update({
+            textnews: article.textnews,
+            visibility:article.visibility,
+            image: picture,
+        }),
 
     deleteArticle: async (idnews) =>
         db.select()

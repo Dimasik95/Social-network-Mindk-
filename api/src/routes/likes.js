@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const likeService = require('../services/store/likes.service');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
+const authMiddleware = require('../middleware/authMiddleware');
 
 router.get('/',
 		   asyncErrorHandler(async (req, res) => {
@@ -30,30 +31,34 @@ router.get('/:idliked',
 	})
 );
 
-router.post('/', 
-			asyncErrorHandler(async (req, res) => {
-	const like = req.body;
-	
-	const addLike = await likeService.addLike(like);
-		if (addLike && Object.keys(addLike).length) {
-			res.status(201).send('New like!');
-		} else {
-			res.status(404).send('Not found');
-		} 
-	})
+router.post('/',
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+			const like = req.body;
+			const addLike = await likeService.addLike({
+				...like,
+				userid: req.auth.id,
+			});
+			if (addLike && Object.keys(addLike).length) {
+					res.status(201).send('New like!');
+			} else {
+					res.status(404).send('Not found');
+			} 
+		})
 );
 
 router.delete('/:idliked',
-			  asyncErrorHandler(async (req, res) => {
-	const idliked = req.params.idliked;
+		authMiddleware,
+		asyncErrorHandler(async (req, res) => {
+			const idliked = req.params.idliked;
 	
-	const deleteLike = await likeService.deleteLike(idliked);
-		if (deleteLike) {
-			res.status(200).send('Like was deleted!');
-		} else {
-			res.status(404).send('Not found');
-		}
-	})
+			const deleteLike = await likeService.deleteLike(idliked);
+			if (deleteLike) {
+					res.status(200).send('Like was deleted!');
+			} else {
+					res.status(404).send('Not found');
+			}
+		})
 );
 
 module.exports = router;

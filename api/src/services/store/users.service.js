@@ -2,17 +2,29 @@ const db = require('../db');
 
 module.exports = {
     getAllUsers: async (limit, offset) => 
-            db.select()
+        db.select()
             .from('userdata')
                 .limit(limit)
                 .offset(offset)
             .orderBy('iduser'),
+
+    getUser: async (iduser) =>
+        db.select()
+            .first()
+            .where({ iduser })
+            .from('userdata'),
 
     getUserById: async (iduser) => 
         db.select()
             .from('userdata')
             .where({ iduser })
             .orderBy('iduser'),
+
+    getUserByEmail: async (email) =>
+        db.select()
+            .first()
+            .where({ email })
+            .from('userdata'),
 
     getUserAvatar: async (iduser) =>
         db.select('avatarphoto')
