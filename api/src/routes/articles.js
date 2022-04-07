@@ -79,7 +79,7 @@ asyncErrorHandler(async (req, res) => {
 	})
 );
 
-router.post('/idnews/image',
+router.post('/:idnews/image',
 			authMiddleware,
 			fileMiddleware.single('image'),
 			asyncErrorHandler(async (req, res) => {
