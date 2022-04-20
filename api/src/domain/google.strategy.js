@@ -6,7 +6,7 @@ const userService = require('../services/store/users.service');
 passport.use(
         new GoogleTokenStrategy(
             {
-                clientID: config.googleClientID,
+                clientID: config.googleClientId,
                 clientSecret: config.googleClientSecret,
             },
 
@@ -15,15 +15,16 @@ passport.use(
                 let user = await userService.getUserByEmail(email);
                 if (!user) {
                     await userService.addUser({
-                            username: profile.displayName,
+                            firstname: profile.displayName,
                             email,
                     });
                     user = await userService.getUserByEmail(email);
                 }
                 return done(null, {
                         id:user.id,
-                        username: user.username,
+                        firstname: user.firstname,
                         email: user.email,
+                        avatar: user.avatar,
                 });
             }
         )

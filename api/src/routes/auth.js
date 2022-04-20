@@ -33,7 +33,7 @@ router.post(
 );
 router.post(
     '/google',
-    passport.authenticate('google-token', { session: false}),
+    passport.authenticate('google-token', { session: false }),
     asyncErrorHandler(async (req, res) => {
         const { accessToken, refreshToken } = await authService.authorizeById(
             req.user.id,
@@ -42,6 +42,9 @@ router.post(
           return res.send({
               accessToken,
               refreshToken,
+              userId: req.user.id,
+              firstname: req.user.firstname,
+              avatar: req.user.avatar,
               success: true,
           });
         }
@@ -50,7 +53,7 @@ router.post(
 );
 router.post(
     '/facebook',
-    passport.authenticate('google-token', { session: false}),
+    passport.authenticate('facebook-token', { session: false}),
     asyncErrorHandler(async (req, res) => {
         const { accessToken, refreshToken } = await authService.authorizeById(
             req.user.id
@@ -59,6 +62,9 @@ router.post(
                  return res.send({
                          accessToken,
                          refreshToken,
+                         userId: req.user.id,
+                         firstname: req.user.firstname,
+                         avatar: req.user.avatar,
                          success: true,
           });
         }
