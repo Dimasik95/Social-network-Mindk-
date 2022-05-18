@@ -11,7 +11,7 @@ import { serialize } from 'object-to-formdata';
 const dataURLtoBlob = require('blueimp-canvas-to-blob');
 
 const Article = (props) => {
-	const { author, when, id, image } = props;
+	const { id, image } = props;
 	
     const mutation = useMutation((data) => editArticle(id, data));
     const onFormSubmit = (data) => {
@@ -64,9 +64,7 @@ const Article = (props) => {
             validationSchema={schema}
         >
             <Form>
-                <p>{author}</p>
-                <p>{when}</p>
-                <Field component={TextField} as='textarea' name='textnews' className='textarea' multiline rows={3}></Field>
+                <Field component={TextField} as='textarea' name='textnews' className='textarea' multiline rows={6}></Field>
                 {image && ( <CardMedia component='img' image={`http://localhost:3030/${image}`} height='300px' />)}
                 <Field component={FormikAutocomplete} name='visibility' options={options} value={options.value} />
                 <Button variant='outlined'>Cancel</Button>

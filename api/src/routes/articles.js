@@ -99,10 +99,12 @@ router.put('/:idnews',
 		   fileMiddleware.single('image'),
 		   asyncErrorHandler(async (req, res) => {
 	const idnews = req.params.idnews;
-	const picture = req.file.path;
+	// const picture = req.file.path;
 	const textnews = req.body;
 	
-	const editArticle = await articleService.editArticle(idnews, textnews, picture);
+	const editArticle = await articleService.editArticle(idnews, textnews, 
+		// picture
+		);
 		if (editArticle) {
 			res.status(200).send('Article was update!');
 		} else {
