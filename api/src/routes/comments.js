@@ -2,6 +2,8 @@ const router = require('express').Router();
 const commentService = require('../services/store/comments.service');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
 const authMiddleware = require('../middleware/authMiddleware');
+const aclMiddleware = require('../middleware/aclMiddleware');
+const acl = require('../services/acl');
 
 router.get('/', 
 		   asyncErrorHandler(async (req, res) => {
@@ -48,6 +50,15 @@ router.post('/',
 
 router.put('/:idcomment',
 		   authMiddleware,
+		   aclMiddleware([
+			{
+			 	resource: acl.Resource.COMMENT,
+			 	action: acl.Action.UPDATE,
+			 	possession: acl.Possession.OWN,
+			 	getResource: (req) => commentService.getComment(req.params.id),
+			 	isOwn: (resource, userId) => resource.userid === userId,
+			},
+		]),
 		   asyncErrorHandler(async (req, res) => {
 	const idcomment = req.params.idcomment;
 	const commenttext = req.body;
@@ -63,6 +74,15 @@ router.put('/:idcomment',
 
 router.delete('/:idcomment',
 		authMiddleware,
+		aclMiddleware([
+			{
+			 	resource: acl.Resource.COMMENT,
+			 	action: acl.Action.DELETE,
+			 	possession: acl.Possession.OWN,
+			 	getResource: (req) => commentService.getComment(req.params.id),
+			 	isOwn: (resource, userId) => resource.userid === userId,
+			},
+		]),
 		asyncErrorHandler(async (req, res) => {
 				const idcomment = req.params.idcomment;
 
