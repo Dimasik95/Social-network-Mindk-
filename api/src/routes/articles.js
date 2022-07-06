@@ -2,7 +2,9 @@ const router = require('express').Router();
 const articleService = require('../services/store/articles.service');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
 const fileMiddleware = require('../middleware/file');
-const authMiddleware = require('../middleware/authMiddleware')
+const authMiddleware = require('../middleware/authMiddleware');
+const aclMiddleware = require('../middleware/aclMiddleware');
+const acl = require('../services/acl');
 
 
 router.get('/',
@@ -43,8 +45,6 @@ router.get('/:whatcommented/comments',
 	const articleComments = await articleService.getArticleComments(whatcommented, limit, offset);
 		if (articleComments && Object.keys(articleComments).length) {
 			res.status(200).send(articleComments);
-		} else {
-			res.status(404).send('Not found comments');
 		} 
 	})
 );
@@ -96,13 +96,22 @@ router.post('/:idnews/image',
 
 router.put('/:idnews',
 		   authMiddleware,
+		   aclMiddleware([
+		   	{
+				resource: acl.Resource.ARTICLE,
+				action: acl.Action.UPDATE,
+				possession: acl.Possession.OWN,
+				getResource: (req) => articleService.getArticle(req.params.id),
+				isOwn: (resource, userId) => resource.userid === userId,
+		   	},
+		   ]),
 		   fileMiddleware.single('image'),
 		   asyncErrorHandler(async (req, res) => {
 	const idnews = req.params.idnews;
-	const picture = req.file.path;
 	const textnews = req.body;
 	
-	const editArticle = await articleService.editArticle(idnews, textnews, picture);
+	const editArticle = await articleService.editArticle(idnews, textnews, 
+		);
 		if (editArticle) {
 			res.status(200).send('Article was update!');
 		} else {
@@ -113,6 +122,15 @@ router.put('/:idnews',
 
 router.delete('/:idnews',
 			   authMiddleware,
+			   aclMiddleware([
+				{
+				 	resource: acl.Resource.ARTICLE,
+				 	action: acl.Action.DELETE,
+				 	possession: acl.Possession.OWN,
+				 	getResource: (req) => articleService.getArticle(req.params.id),
+				 	isOwn: (resource, userId) => resource.userid === userId,
+				},
+			]),
 			   asyncErrorHandler(async (req, res) => {
 	const idnews = req.params.idnews;
 	

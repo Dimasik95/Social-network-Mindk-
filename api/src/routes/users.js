@@ -4,6 +4,8 @@ const userService = require('../services/store/users.service');
 const fileMiddleware = require('../middleware/file');
 const asyncErrorHandler = require('../middleware/asyncErrorHandler');
 const authMiddleware = require('../middleware/authMiddleware');
+const aclMiddleware = require('../middleware/aclMiddleware');
+const acl = require('../services/acl');
 
 router.get('/:iduser/avatar',
 	 	   asyncErrorHandler(async (req, res) => {
@@ -75,8 +77,17 @@ router.post('/',
 
 router.put('/:iduser',
 		authMiddleware,
+		aclMiddleware([
+			{
+			 	resource: acl.Resource.USER,
+			 	action: acl.Action.UPDATE,
+			 	possession: acl.Possession.OWN,
+			 	getResource: (req) => userService.getUser(req.params.id),
+			 	isOwn: (resource, userId) => resource.id === userId,
+			},
+		]),
 		asyncErrorHandler(async (req, res) => {
-				const iduser = req.params.iduser;
+				const iduser = req.auth.iduser;
 				const userProfile = req.body;
 				const editUser = await userService.editUser(iduser, userProfile);
 				if (editUser) {
@@ -89,6 +100,15 @@ router.put('/:iduser',
 
 router.delete('/:iduser',
 		authMiddleware,
+		aclMiddleware([
+			{
+			 resource: acl.Resource.USER,
+			 action: acl.Action.DELETE,
+			 possession: acl.Possession.ANY,
+			 getResource: (req) => userService.getUser(req.params.id),
+			 isOwn: (resource, userId) => resource.id === userId,
+			},
+		]),
 		asyncErrorHandler(async (req, res) => {
 				const iduser = req.params.iduser;
 				const deleteUser = await userService.deleteUser(iduser);

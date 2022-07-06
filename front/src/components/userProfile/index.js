@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Profile from '../profile';
 import UserAvatar from '../userAvatar';
 
+
 const UserProfile = (props) => {
 	const { profile } = props;
 	return (
