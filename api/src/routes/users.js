@@ -63,7 +63,7 @@ router.get('/:iduser',
 );
 
 router.post('/',
-		authMiddleware,
+		// authMiddleware,
 		asyncErrorHandler(async (req, res) => {
 				const userProfile = req.body;
 				const addUser = await userService.addUser(userProfile);
