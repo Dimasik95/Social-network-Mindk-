@@ -5,6 +5,7 @@ const fileMiddleware = require('../middleware/file');
 const authMiddleware = require('../middleware/authMiddleware');
 const aclMiddleware = require('../middleware/aclMiddleware');
 const acl = require('../services/acl');
+const validateMiddleware = require('../middleware/validateMiddleware')
 
 
 router.get('/',
@@ -64,6 +65,14 @@ router.get('/:idliked/likes',
 
 router.post('/',
 authMiddleware,
+validateMiddleware(
+	{
+		textnews: { required: true, min:1, max:5000 },
+		author: { required: true },
+		dateandtime: { required: true },
+		visibility: { required: true, regex: '^(all|me|friends)$' }
+		
+	}),
 fileMiddleware.single('image'), 
 asyncErrorHandler(async (req, res) => {
 	const textnews = req.body;
@@ -105,6 +114,14 @@ router.put('/:idnews',
 				isOwn: (resource, userId) => resource.userid === userId,
 		   	},
 		   ]),
+		   validateMiddleware(
+			{
+				textnews: { required: true, min:1, max:5000 },
+				author: { required: true },
+				dateandtime: { required: true },
+				visibility: { required: true, regex: '^(all|me|friends)$' }
+				
+			}),
 		   fileMiddleware.single('image'),
 		   asyncErrorHandler(async (req, res) => {
 	const idnews = req.params.idnews;
