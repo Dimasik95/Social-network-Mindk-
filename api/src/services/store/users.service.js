@@ -26,6 +26,12 @@ module.exports = {
             .where({ email })
             .from('userdata'),
 
+    getUserByPhone: async (phonenumber) =>
+        db.select()
+            .first()
+            .where({ phonenumber })
+            .from('userdata'),
+
     getUserAvatar: async (iduser) =>
         db.select('avatarphoto')
             .from('userdata')

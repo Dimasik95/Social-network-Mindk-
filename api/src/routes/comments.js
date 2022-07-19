@@ -4,6 +4,7 @@ const asyncErrorHandler = require('../middleware/asyncErrorHandler');
 const authMiddleware = require('../middleware/authMiddleware');
 const aclMiddleware = require('../middleware/aclMiddleware');
 const acl = require('../services/acl');
+const validateMiddleware = require('../middleware/validateMiddleware');
 
 router.get('/', 
 		   asyncErrorHandler(async (req, res) => {
@@ -35,6 +36,13 @@ router.get('/:idcomment',
 
 router.post('/',
 		authMiddleware,
+		validateMiddleware(
+			{
+				commenttext: { required: true, min:1, max:5000 },
+				whocommented: { required: true },
+				whatcommented: { required: true },
+				dateandtime: { required: true },
+			}),
 		asyncErrorHandler(async (req, res) => {
 			const addComment = await commentService.addComment({
 					...req.body,
@@ -50,6 +58,13 @@ router.post('/',
 
 router.put('/:idcomment',
 		   authMiddleware,
+		   validateMiddleware(
+			{
+				commenttext: { required: true, min:1, max:5000 },
+				whocommented: { required: true },
+				whatcommented: { required: true },
+				dateandtime: { required: true },
+			}),
 		   aclMiddleware([
 			{
 			 	resource: acl.Resource.COMMENT,
