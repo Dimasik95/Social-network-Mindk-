@@ -36,13 +36,13 @@ router.post(
     passport.authenticate('google-token', { session: false }),
     asyncErrorHandler(async (req, res) => {
         const { accessToken, refreshToken } = await authService.authorizeById(
-            req.user.id,
+            req.user.iduser,
         );
         if (accessToken) {
           return res.send({
               accessToken,
               refreshToken,
-              userId: req.user.id,
+              userId: req.user.iduser,
               firstname: req.user.firstname,
               avatar: req.user.avatar,
               success: true,

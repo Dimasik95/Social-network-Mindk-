@@ -1,7 +1,7 @@
 const db = require('../db');
 
 module.exports = {
-        create: (session) => db('session').inser(session),
+        create: (session) => db('session').insert(session),
         getByToken: (token) =>
                 db.select().first().where({ token }).from('session'),
         deleteByToken: (token) => db('session').where({ token }).del(),

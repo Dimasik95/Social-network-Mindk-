@@ -33,7 +33,7 @@ module.exports = {
 		const user = await userService.getUser(id);
 		if (user) {
 			const accessToken = jwt.sign(
-				{ id: user.id, username: user.username, avatar: user.avatar },config.appKey,
+				{ id: user.iduser, username: user.firstname, avatar: user.avatarphoto },config.appKey,
 				{
 					expiresIn: config.tokenExpiresIn,
 				}
