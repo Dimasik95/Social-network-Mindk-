@@ -15,11 +15,22 @@ module.exports = {
             .orderBy('idnews'),
 
     getArticleComments: async (whatcommented, limit, offset) =>
-        db.select()
-        .from('commentary')
-        .where({ whatcommented })
-            .limit(limit)
-            .offset(offset),
+        db('commentary as com')
+            .select('com.idcomment',
+                    'com.commenttext',
+                    'com.dateandtime',
+                    'com.whatcommented',
+                    'com.whocommented',
+                    'com.commentoncomment',
+                    'u.firstname as user',
+                    'u.iduser as userId',
+                    'u.avatarphoto'
+            )
+            .join('userdata as u', 'com.whocommented', '=', 'u.iduser')
+            .where({ whatcommented })
+                .limit(limit)
+                .offset(offset)
+                .orderBy('dateandtime', 'desc'),
     
     getArticleLikes: async (idliked) =>
         db.select()

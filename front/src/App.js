@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
-import Head from './containers/header';
+import Header from './components/header';
 import ArticlesContainer from "./containers/posts";
 import ProfileContainer from "./containers/profile";
 import UsersContainer from "./containers/users";
@@ -36,7 +36,7 @@ function App() {
   return (
     <div>
         <authContext.Provider value={userData}>
-        <Head />
+        <Header />
         <Routes>
             <Route path='/' element={<Navigate to="/articles" replace />} />
             <Route path='/login' element={<GuestRoute><StartPage /></GuestRoute>} />

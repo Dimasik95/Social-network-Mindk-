@@ -44,10 +44,12 @@ router.post('/',
 				dateandtime: { required: true },
 			}),
 		asyncErrorHandler(async (req, res) => {
-			const addComment = await commentService.addComment({
-					...req.body,
-					userid: req.auth.id
-			});
+			const commentData = req.body;
+			const iduser = req.auth.iduser; 
+			const addComment = await commentService.addComment(
+				commentData,
+				iduser
+			);
 			if (addComment && Object.keys(addComment).length) {
 					res.status(201).send('New comment!');
 			} else {
