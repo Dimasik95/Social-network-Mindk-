@@ -6,6 +6,7 @@ import { googleClientId } from '../../config/config';
 import { facebookClientId } from '../../config/config';
 import {Grid, Typography} from '@mui/material';
 import {makeStyles} from '@material-ui/styles';
+import {Navigate} from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
         root: {
@@ -136,13 +137,12 @@ const AuthForm = () => {
                         </Grid>
                         </>
                 );
+        } else { 
+                localStorage.setItem('auth', JSON.stringify(auth));
         }
 
         return (
-            <div>
-                    <div>Authorized</div>
-                    <div>Welcome: {auth.user.username}</div>
-            </div>
+                <Navigate to="/" replace />
         );
 };
 
